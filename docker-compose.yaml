@@ -1,0 +1,21 @@
+services:
+  emqx:
+    image: emqx:5.8.1
+    hostname: emqx
+    container_name: emqx
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    environment:
+      - EMQX_DASHBOARD__DEFAULT_PASSWORD=admin
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8084:8084
+      - 8883:8883
+      - 18083:18083 
+    volumes:
+      - ./emqx/data:/opt/emqx/data
+      - ./emqx/log:/opt/emqx/log
